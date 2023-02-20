@@ -76,7 +76,7 @@ function Login() {
           name="motdepasse"
           onChange={handleInput}
         />
-        <button type="submit" onClic={addUser}>
+        <button type="submit" onClick={addUser}>
           S'inscire
         </button>
       </form>
