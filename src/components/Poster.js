@@ -2,55 +2,47 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Post() {
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState([""]);
+  const [newPost, setNewPost] = useState([]);
 
-  const addUser = async () => {
-    console.log("test", post);
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "bearer token",
-      },
-
-      body: JSON.stringify({
-        title: post.title,
-        content: post.content,
-      }),
-    };
-
-    console.log(options);
-    let response = await fetch(
-      `https://social-network-api.osc-fr1.scalingo.io/contapp/register`,
-      options
-    );
-
-    let data = await response.json();
-    console.log("data", data);
-
-    setPost(data);
-
-    console.log("je marche");
+  const addPost = (e) => {
+    e.preventDefault();
+    console.log(post);
+    setNewPost([...newPost, post]);
+    setPost("");
+  };
+  const deletePost = (index) => {
+    setNewPost(newPost.filter((_, i) => i !== index));
   };
 
-  useEffect(() => {
-    console.log("post", post);
-  }, []);
+  const render = () => {
+    if (newPost.length >= 0) {
+      return newPost.map((item, index) => {
+        return (
+          <div key={item}>
+            {item}
+            {""}
+            <button onClick={() => deletePost(index)}>Supprimer</button>
+          </div>
+        );
+      });
+    }
+  };
   return (
     <div>
-      <h2>Fil Actu</h2>
-      <nav>
-        <Link to="/compte">Mon Compte</Link>
-        <Link to="/">Me Connecter</Link>
-      </nav>
-      <h3>Post</h3>
-      <div>
-        <input placeholder="title" />
-      </div>
-      <div>
-        <input placeholder="content" />
-      </div>
-      <button onClick={addUser}>Envoyer</button>
+      <form onSubmit={addPost}>
+        <h1>Publier</h1>
+        <p>
+          <input
+            type="text"
+            value={post}
+            onChange={(e) => setPost(e.target.value)}
+            placeholder="Titre"
+          ></input>
+          <button>Valider</button>
+        </p>
+        {render()}
+      </form>
     </div>
   );
 }
