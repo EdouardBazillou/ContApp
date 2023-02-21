@@ -1,28 +1,31 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 function Login() {
-  const [user, setUser] = useState("");
   const [userList, setUserlist] = useState([]);
 
-  const handleInput = (e) => {
+  const [user, setUser] = useState({
+    name: "",
+    firstName: "",
+    pseudo: "",
+    mail: "",
+    phone: "",
+    motdepasse: "",
+  });
+  const handleInput = (key) => (e) => {
     setUser({
-      [e.target.name]: e.target.value,
-      [e.target.firstName]: e.target.value,
-      [e.target.pseudo]: e.target.value,
-      [e.target.mail]: e.target.value,
-      [e.target.phone]: e.target.value,
-      [e.target.motdepasse]: e.target.value,
+      ...user,
+      [key]: e.target.value,
     });
   };
 
   const addUser = (e) => {
     e.preventDefault();
     setUserlist([...userList, user]);
-    console.log("new liste", userList);
+    console.log("click ! ", userList);
   };
 
   useEffect(() => {
-    // console.log("user", user);
+    // console.log(user);
   }, [user]);
 
   useEffect(() => {
@@ -32,7 +35,9 @@ function Login() {
   return (
     <div>
       <h1> Bienvenu sur ContAPP ! </h1>
+
       <h2>Veuillez Créer Votre compte</h2>
+
       <form id="form">
         <input
           type="text"
@@ -76,10 +81,9 @@ function Login() {
           name="motdepasse"
           onChange={handleInput}
         />
-        <button type="submit" onClick={addUser}>
-          S'inscire
-        </button>
+        <button onClick={addUser}>S'inscire</button>
       </form>
+
       <nav>
         <Link to="/compte">Mon Compte</Link>
         <Link to="/filActu">Mon Fil Actu</Link>
