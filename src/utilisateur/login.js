@@ -8,9 +8,9 @@ function Login() {
         </nav>
       </header>
       <div className="containerLogin">
-        <div class="screen">
-          <div class="screenContent">
-            <form class="loginForm">
+        <div className="screen">
+          <div className="screenContent">
+            <form className="loginForm">
               <div className="dataLoginEmail">
                 <input
                   type="text"
@@ -22,7 +22,7 @@ function Login() {
               <div className="dataPasswordEmail">
                 <input
                   type="password"
-                  class="loginPasswordInput"
+                  className="loginPasswordInput"
                   placeholder="mot de passe"
                   name="password"
                 />
