@@ -4,7 +4,6 @@ function compte() {
     <div>
       <h1>Compte</h1>
       <nav>
-        <Link to="/">Se Connecter</Link>
         <Link to="/filActu">Mon Fil Actu</Link>
       </nav>
     </div>

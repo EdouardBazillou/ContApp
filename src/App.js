@@ -1,14 +1,15 @@
 import "./App.css";
 import Error from "./components/error";
-import Login from "./utilisateur/login";
+import Register from "./utilisateur/register";
 import Compte from "./utilisateur/Compte";
 import Actu from "./components/filActu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./utilisateur/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Register />,
     errorElement: <Error />,
   },
   {
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: "/filActu",
     element: <Actu />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/Login",
+    element: <Login />,
     errorElement: <Error />,
   },
 ]);
