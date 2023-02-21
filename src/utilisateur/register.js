@@ -48,6 +48,8 @@ function Register() {
     setUser(data);
 
     console.log("je marche");
+
+    alert("Vous Êtes Bien Inscrit !   Bienvenu Sur Notre Réseau ! ");
   };
 
   useEffect(() => {
@@ -60,6 +62,7 @@ function Register() {
         <nav>
           <Link to="/Login">Me Connecter</Link>
           <Link to="/filActu">Mon Fil Actu</Link>
+          <Link to="/Poster">Publier</Link>
         </nav>
       </header>
       <h1> Bienvenu sur ContAPP ! </h1>
