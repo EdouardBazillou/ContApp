@@ -5,19 +5,15 @@ function Register() {
   const [userList, setUserlist] = useState([]);
 
   const [user, setUser] = useState({
-    name: "",
-    firstName: "",
-    pseudo: "",
-    mail: "",
-    phone: "",
-    motdepasse: "",
+    lastname: "",
+    firstname: "",
+    email: "",
+    password: "",
   });
 
-  const handleInput = (key) => (e) => {
-    setUser({
-      ...user,
-      [key]: e.target.value,
-    });
+  const handleInput = (e) => {
+    setUser({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   console.log(user);
@@ -25,7 +21,7 @@ function Register() {
   //submit form//
 
   const addUser = async () => {
-    console.log("test");
+    console.log("test", user);
     const options = {
       method: "POST",
       headers: {
@@ -33,14 +29,13 @@ function Register() {
       },
 
       body: JSON.stringify({
-        name: user.name,
-        firstName: user.firstName,
-        pseudo: user.pseudo,
-        mail: user.mail,
-        phone: user.phone,
-        motdepasse: user.motdepasse,
+        lastname: user.lastname,
+        firstname: user.firstname,
+        email: user.email,
+        password: user.password,
       }),
     };
+
     console.log(options);
     let response = await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/register`,
@@ -76,42 +71,28 @@ function Register() {
           type="text"
           className="inputName"
           placeholder="Votre nom"
-          name="name"
+          name="lastname"
           onChange={handleInput}
         />
         <input
           type="text"
           className="inputFirstName"
           placeholder="Votre Prénom"
-          name="firstName"
-          onChange={handleInput}
-        />
-        <input
-          type="text"
-          className="pseudo"
-          placeholder="Votre Pseudo"
-          name="pseudo"
+          name="firstname"
           onChange={handleInput}
         />
         <input
           type="text"
           className="inputMail"
           placeholder="Votre Mail"
-          name="mail"
-          onChange={handleInput}
-        />
-        <input
-          type="text"
-          className="inputPhone"
-          placeholder="Votre Téléphone"
-          name="phone"
+          name="email"
           onChange={handleInput}
         />
         <input
           type="text"
           className="motdepasse"
           placeholder="Votre Mot De Passe"
-          name="motdepasse"
+          name="password"
           onChange={handleInput}
         />
       </form>
