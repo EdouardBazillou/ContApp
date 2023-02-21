@@ -14,7 +14,7 @@ function Login() {
               <div className="dataLoginEmail">
                 <input
                   type="text"
-                  class="loginEmailInput"
+                  className="loginEmailInput"
                   placeholder="email"
                   name="email"
                 />
