@@ -5,6 +5,7 @@ import Compte from "./utilisateur/Compte";
 import Actu from "./components/filActu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./utilisateur/Login";
+import Post from "./components/Poster";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
   {
     path: "/Login",
     element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/Poster",
+    element: <Post />,
     errorElement: <Error />,
   },
 ]);
