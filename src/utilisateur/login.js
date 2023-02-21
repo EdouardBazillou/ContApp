@@ -11,26 +11,48 @@ function Login() {
     phone: "",
     motdepasse: "",
   });
+
   const handleInput = (key) => (e) => {
-    setUser({
+    setUser(e.target.value)({
       ...user,
       [key]: e.target.value,
     });
   };
 
-  const addUser = (e) => {
-    e.preventDefault();
-    setUserlist([...userList, user]);
-    console.log("click ! ", userList);
+  console.log(user);
+
+  //submit form//
+
+  const addUser = async () => {
+    const options = {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      Body: {
+        name: user.name,
+        firstName: user.firstName,
+        pseudo: user.pseudo,
+        mail: user.mail,
+        phone: user.phone,
+        motdepasse: user.motdepasse,
+      },
+    };
+
+    let response = await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/register`,
+
+      options
+    );
+
+    let data = await response.json();
+    console.log("data", data);
+
+    setUser(data);
+
+    console.log("je marche");
   };
-
-  useEffect(() => {
-    // console.log(user);
-  }, [user]);
-
-  useEffect(() => {
-    // console.log("userList", userList);
-  }, [userList]);
 
   return (
     <div>
