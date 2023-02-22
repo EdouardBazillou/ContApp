@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../Assets/Footer";
+import ls from "local-storage";
 
 function Register() {
-  const [userList, setUserlist] = useState([]);
+  // const [userList, setUserlist] = useState([]);
 
   const [user, setUser] = useState({
     lastname: "",
@@ -46,12 +47,14 @@ function Register() {
     let data = await response.json();
     console.log("data", data);
 
-    setUser(data);
+    // localStorage.setItem("user", user);
 
     console.log("je marche");
 
     alert("Vous Êtes Bien Inscrit !   Bienvenu Sur Notre Réseau ! ");
   };
+
+  // console.log(localStorage);
 
   useEffect(() => {
     console.log("user", user);
@@ -75,7 +78,7 @@ function Register() {
               <Link to="/Poster">Publier</Link>
             </div>
           </div>
-          <div class="border"></div>
+          <div className="border"></div>
         </nav>
       </header>
       <div className="formBody">
