@@ -8,36 +8,29 @@ function Login() {
         </nav>
       </header>
       <div className="containerLogin">
-        <div className="screen">
-          <div className="screenContent">
-            <form className="loginForm">
-              <div className="dataLoginEmail">
-                <input
-                  type="text"
-                  className="loginEmailInput"
-                  placeholder="email"
-                  name="email"
-                />
-              </div>
-              <div className="dataPasswordEmail">
-                <input
-                  type="password"
-                  className="loginPasswordInput"
-                  placeholder="mot de passe"
-                  name="password"
-                />
-              </div>
-              <div>
-                <button
-                  className="buttonLoginSubmit"
-                  placeholder="Se connecter"
-                >
-                  <span className="buttonLoginText">Se connecter</span>
-                </button>
-              </div>
-            </form>
+        <form className="loginForm">
+          <div className="dataLoginEmail">
+            <input
+              type="text"
+              className="loginEmailInput"
+              placeholder="email"
+              name="email"
+            />
           </div>
-        </div>
+          <div className="dataPasswordEmail">
+            <input
+              type="password"
+              className="loginPasswordInput"
+              placeholder="mot de passe"
+              name="password"
+            />
+          </div>
+          <div className="submitLogin">
+            <button className="buttonLoginSubmit" placeholder="Se connecter">
+              <span className="buttonLoginText">Valider</span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
