@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Footer from "../Assets/Footer";
+import ls from "local-storage";
 
 function Register() {
-  const [userList, setUserlist] = useState([]);
+  // const [userList, setUserlist] = useState([]);
 
   const [user, setUser] = useState({
     lastname: "",
@@ -45,12 +47,14 @@ function Register() {
     let data = await response.json();
     console.log("data", data);
 
-    setUser(data);
+    // localStorage.setItem("user", user);
 
     console.log("je marche");
 
     alert("Vous Êtes Bien Inscrit !   Bienvenu Sur Notre Réseau ! ");
   };
+
+  // console.log(localStorage);
 
   useEffect(() => {
     console.log("user", user);
@@ -60,46 +64,60 @@ function Register() {
     <div>
       <header>
         <nav>
-          <Link to="/Login">Me Connecter</Link>
-          <Link to="/filActu">Mon Fil Actu</Link>
-          <Link to="/Poster">Publier</Link>
+          <div className="navBar">
+            <div className="contAppHome">
+              <p>ContApp</p>
+            </div>
+            <div className="ongletConnection">
+              <Link to="/Login">Me Connecter</Link>
+            </div>
+            <div className="ongletActu">
+              <Link to="/filActu">Mon Fil Actu</Link>
+            </div>
+            <div className="ongletPublier">
+              <Link to="/Poster">Publier</Link>
+            </div>
+          </div>
+          <div className="border"></div>
         </nav>
       </header>
-      <h1> Bienvenu sur ContAPP ! </h1>
-
-      <h2>Veuillez Créer Votre compte</h2>
-
-      <form id="form">
-        <input
-          type="text"
-          className="inputName"
-          placeholder="Votre nom"
-          name="lastname"
-          onChange={handleInput}
-        />
-        <input
-          type="text"
-          className="inputFirstName"
-          placeholder="Votre Prénom"
-          name="firstname"
-          onChange={handleInput}
-        />
-        <input
-          type="text"
-          className="inputMail"
-          placeholder="Votre Mail"
-          name="email"
-          onChange={handleInput}
-        />
-        <input
-          type="text"
-          className="motdepasse"
-          placeholder="Votre Mot De Passe"
-          name="password"
-          onChange={handleInput}
-        />
-      </form>
-      <button onClick={addUser}>S'inscire</button>
+      <div className="formBody">
+        <h3>Je crée mon compteApp</h3>
+        <form id="form">
+          <input
+            type="text"
+            className="input"
+            placeholder="Mon nom"
+            name="lastname"
+            onChange={handleInput}
+          />
+          <input
+            type="text"
+            className="input"
+            placeholder="Mon Prénom"
+            name="firstname"
+            onChange={handleInput}
+          />
+          <input
+            type="text"
+            className="input"
+            placeholder="Mon mail"
+            name="email"
+            onChange={handleInput}
+          />
+          <input
+            type="text"
+            className="input"
+            placeholder="Mon mot de passe"
+            name="password"
+            onChange={handleInput}
+          />
+        </form>
+        <button className="submitFormButton" onClick={addUser}>
+          GO!
+        </button>
+      </div>
+      <Footer />
     </div>
   );
 }

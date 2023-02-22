@@ -1,5 +1,32 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import ls from "local-storage";
+
 function Login() {
+  // const login = async () => {
+  //   const options = {
+  //     method: "Post",
+
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+
+  //     body: JSON.stringify({
+  //       email: user.email,
+  //       password: user.password,
+  //     }),
+  //   };
+
+  //   const response = await fetch(
+  //     `https://social-network-api.osc-fr1.scalingo.io/contapp/login`,
+  //     options
+  //   );
+
+  //   let data = await response.json();
+
+  //   console.log("data", data);
+  // };
+
   return (
     <div>
       <header>
@@ -8,35 +35,32 @@ function Login() {
         </nav>
       </header>
       <div className="containerLogin">
-        <div className="screen">
-          <div className="screenContent">
-            <form className="loginForm">
-              <div className="dataLoginEmail">
-                <input
-                  type="text"
-                  className="loginEmailInput"
-                  placeholder="email"
-                  name="email"
-                />
-              </div>
-              <div className="dataPasswordEmail">
-                <input
-                  type="password"
-                  className="loginPasswordInput"
-                  placeholder="mot de passe"
-                  name="password"
-                />
-              </div>
-              <div>
-                <button
-                  className="buttonLoginSubmit"
-                  placeholder="Se connecter"
-                >
-                  <span className="buttonLoginText">Se connecter</span>
-                </button>
-              </div>
-            </form>
+        <form className="loginForm">
+          <div className="dataLoginEmail">
+            <input
+              type="text"
+              className="loginEmailInput"
+              placeholder="email"
+              name="email"
+            />
           </div>
+          <div className="dataPasswordEmail">
+            <input
+              type="password"
+              className="loginPasswordInput"
+              placeholder="mot de passe"
+              name="password"
+            />
+          </div>
+        </form>
+        <div className="submitLogin">
+          <button
+            className="buttonLoginSubmit"
+            placeholder="Se connecter"
+            // onClick={login}
+          >
+            <span className="buttonLoginText">Valider</span>
+          </button>
         </div>
       </div>
     </div>
