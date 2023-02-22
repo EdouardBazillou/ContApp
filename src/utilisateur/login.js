@@ -3,29 +3,42 @@ import { useState } from "react";
 import ls from "local-storage";
 
 function Login() {
-  // const login = async () => {
-  //   const options = {
-  //     method: "Post",
+  const [user, setUser] = useState({
+    lastname: "",
+    firstname: "",
+    email: "",
+    password: "",
+  });
 
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
+  const login = async () => {
+    const options = {
+      method: "Post",
 
-  //     body: JSON.stringify({
-  //       email: user.email,
-  //       password: user.password,
-  //     }),
-  //   };
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-  //   const response = await fetch(
-  //     `https://social-network-api.osc-fr1.scalingo.io/contapp/login`,
-  //     options
-  //   );
+      body: JSON.stringify({
+        email: user.email,
+        password: user.password,
+      }),
+    };
 
-  //   let data = await response.json();
+    const response = await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/login`,
+      options
+    );
 
-  //   console.log("data", data);
-  // };
+    let data = await response.json();
+
+    if (response.success == true) {
+      localStorage.setItem("userToken", response.token);
+    } else {
+      return alert(response.message);
+    }
+
+    console.log("data", data);
+  };
 
   return (
     <div>
@@ -57,7 +70,7 @@ function Login() {
           <button
             className="buttonLoginSubmit"
             placeholder="Se connecter"
-            // onClick={login}
+            onClick={login}
           >
             <span className="buttonLoginText">Valider</span>
           </button>
