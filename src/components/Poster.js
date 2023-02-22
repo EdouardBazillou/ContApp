@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Menu from "../Assets/Menu";
+import Footer from "../Assets/Footer";
 
 function Post() {
   const [post, setPost] = useState([""]);
@@ -28,7 +30,19 @@ function Post() {
       }),
     };
 
-    console.log(options);
+    // //Changement de syntaxe
+    // console.log(options);
+    // await fetch(
+    //   `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
+    //   options
+    // )
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((response) => {
+    //     console.log("response", response);
+    //   });
+
     let response = await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
       options
@@ -64,24 +78,31 @@ function Post() {
 
   return (
     <div>
-      <nav>
-        <Link to="/compte">Mon Compte</Link>
-        <Link to="/">Me Connecter</Link>
-      </nav>
-      <form onSubmit={addPost}>
-        <h1 className="titlePost">Publication</h1>
-        <p className="newPosts">
-          <textarea
-            type="text"
-            value={post}
-            onChange={(e) => setPost(e.target.value)}
-            placeholder="Post"
-          ></textarea>
-        </p>
-        <button className="displayButton">Valider</button>
-        {render()}
-      </form>
+      <header>
+        <Menu />
+      </header>
+      <div>
+        <form className="postContainer" onSubmit={addPost}>
+          <h1 className="titlePost">Je publie</h1>
+          <div className="newPosts">
+            <textarea
+              type="text"
+              rows="15"
+              cols="60"
+              value={post}
+              onChange={(e) => setPost(e.target.value)}
+              placeholder="mon post"
+            ></textarea>
+          </div>
+          <div>
+            <button className="displayButton">Valider</button>
+          </div>
+          <div className="renderPost">{render()}</div>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }
+
 export default Post;

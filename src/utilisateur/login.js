@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Menu from "../Assets/Menu";
+import Footer from "../Assets/Footer";
 import ls from "local-storage";
 
 function Login() {
@@ -10,9 +11,17 @@ function Login() {
     password: "",
   });
 
-  const login = async () => {
-    const options = {
-      method: "Post",
+  //Reprendre valeur des inputs
+  const handleInput = (e) => {
+    setUser({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  //Fonction FETCH
+  const login = async (e) => {
+    e.preventDefault();
+    let options = {
+      method: "POST",
 
       headers: {
         "Content-Type": "application/json",
@@ -23,29 +32,42 @@ function Login() {
         password: user.password,
       }),
     };
-
-    const response = await fetch(
+    //Changement de syntaxe pour le fetch :
+    await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/login`,
       options
-    );
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log("response", response);
+        if (response.success == true) {
+          localStorage.setItem("@userToken", response.token);
+        } else {
+          return alert(response.message);
+        }
+      });
 
-    let data = await response.json();
+    // if (response.success == true) {
+    //   localStorage.setItem("userToken", response.token);
+    // } else {
+    //   return alert(response.message);
+    // }
 
-    if (response.success == true) {
-      localStorage.setItem("userToken", response.token);
-    } else {
-      return alert(response.message);
-    }
+    // let data = await response.json();
 
-    console.log("data", data);
+    // console.log("data", data);
   };
 
+  //UseEffect
+  useEffect(() => {}, [user]);
+
+  //Return de fin
   return (
     <div>
       <header>
-        <nav>
-          <Link to="/filActu">Mon Fil Actu</Link>
-        </nav>
+        <Menu />
       </header>
       <div className="containerLogin">
         <form className="loginForm">
@@ -55,6 +77,7 @@ function Login() {
               className="loginEmailInput"
               placeholder="email"
               name="email"
+              onChange={handleInput}
             />
           </div>
           <div className="dataPasswordEmail">
@@ -63,6 +86,7 @@ function Login() {
               className="loginPasswordInput"
               placeholder="mot de passe"
               name="password"
+              onChange={handleInput}
             />
           </div>
         </form>
@@ -76,6 +100,7 @@ function Login() {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

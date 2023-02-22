@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../Assets/Footer";
+import Menu from "../Assets/Menu";
 import ls from "local-storage";
 
 function Register() {
@@ -20,7 +21,7 @@ function Register() {
 
   console.log(user);
 
-  //submit form//
+  //submit form
 
   const addUser = async () => {
     console.log("test", user);
@@ -47,14 +48,10 @@ function Register() {
     let data = await response.json();
     console.log("data", data);
 
-    // localStorage.setItem("user", user);
-
     console.log("je marche");
 
-    alert("Vous Êtes Bien Inscrit !   Bienvenu Sur Notre Réseau ! ");
+    alert("Vous êtes bien inscrit ! Bienvenue sur notre réseau ! :)  ");
   };
-
-  // console.log(localStorage);
 
   useEffect(() => {
     console.log("user", user);
@@ -63,23 +60,7 @@ function Register() {
   return (
     <div>
       <header>
-        <nav>
-          <div className="navBar">
-            <div className="contAppHome">
-              <p>ContApp</p>
-            </div>
-            <div className="ongletConnection">
-              <Link to="/Login">Me Connecter</Link>
-            </div>
-            <div className="ongletActu">
-              <Link to="/filActu">Mon Fil Actu</Link>
-            </div>
-            <div className="ongletPublier">
-              <Link to="/Poster">Publier</Link>
-            </div>
-          </div>
-          <div className="border"></div>
-        </nav>
+        <Menu />
       </header>
       <div className="formBody">
         <h3>Je crée mon compteApp</h3>
@@ -94,7 +75,7 @@ function Register() {
           <input
             type="text"
             className="input"
-            placeholder="Mon Prénom"
+            placeholder="Mon prénom"
             name="firstname"
             onChange={handleInput}
           />
@@ -106,7 +87,7 @@ function Register() {
             onChange={handleInput}
           />
           <input
-            type="text"
+            type="password"
             className="input"
             placeholder="Mon mot de passe"
             name="password"
