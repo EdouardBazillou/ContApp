@@ -5,42 +5,80 @@ function Post() {
   const [post, setPost] = useState([""]);
   const [newPost, setNewPost] = useState([]);
 
-  const addPost = (e) => {
+  const deletePost = (item) => {
+    setNewPost(newPost.filter((_, i) => i !== item));
+  };
+
+  const addPost = async (e) => {
     e.preventDefault();
     console.log(post);
     setNewPost([...newPost, post]);
     setPost("");
+    console.log("test", post);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer token",
+      },
+
+      body: JSON.stringify({
+        title: "",
+        content: "",
+      }),
+    };
+
+    console.log(options);
+    let response = await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
+      options
+    );
+
+    let data = await response.json();
+    console.log("data", data);
+
+    setPost(data);
+
+    console.log("je marche");
   };
-  const deletePost = (index) => {
-    setNewPost(newPost.filter((_, i) => i !== index));
-  };
+
+  useEffect(() => {
+    console.log("post", post);
+  }, []);
 
   const render = () => {
     if (newPost.length >= 0) {
       return newPost.map((item, index) => {
         return (
-          <div key={item}>
+          <div className="returnPost" key={item}>
             {item}
             {""}
-            <button onClick={() => deletePost(index)}>Supprimer</button>
+            <button className="deleteButton" onClick={() => deletePost(index)}>
+              Supprimer
+            </button>
           </div>
         );
       });
     }
   };
+
   return (
     <div>
+      <nav>
+        <Link to="/compte">Mon Compte</Link>
+        <Link to="/">Me Connecter</Link>
+      </nav>
       <form onSubmit={addPost}>
-        <h1>Publier</h1>
-        <p>
-          <input
+        <h1 className="titlePost">Publication</h1>
+        <p className="newPosts">
+          <textarea
             type="text"
             value={post}
             onChange={(e) => setPost(e.target.value)}
-            placeholder="Titre"
-          ></input>
-          <button>Valider</button>
+            placeholder="Post"
+          ></textarea>
         </p>
+        <button className="displayButton">Valider</button>
         {render()}
       </form>
     </div>
