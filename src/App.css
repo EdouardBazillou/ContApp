@@ -159,10 +159,10 @@
   cursor: pointer;
   transition: 0.2s;
 
-
+}
 .displayButton {
   color: blue;
-  text-align: center;
+  
 }
 .newPosts {
   text-align: center;
