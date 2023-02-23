@@ -1,54 +1,58 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
 
 function Profil() {
-  //FETCH GET USER + FETCH PUT USER
-  //Variable rappel
-  const [user, setUser] = useState({
-    lastname: "",
-    firstname: "",
-    email: "",
-    password: "",
-  });
+  //CATCH & SET
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [occupation, setOccupation] = useState("");
 
-  //Fonction FETCH GET USER
-  const userConnexion = async (e) => {
-    e.preventDefault();
-    let options = {
+  //MODIFY
+  const [addType, setAddType] = useState(""); // nouveau texte
+  const [current, setCurrent] = useState({}); // objet vide
+  const [edit, setEdit] = useState(false); // edition est désactivé par défaut
+
+  //Valeur INPUT
+  function handleChange(alteration) {
+    setEdit(!edit);
+  }
+
+  function handleEditInputChange(e) {
+    setCurrent({ ...current, text: e.target.value });
+    console.log(current);
+  }
+
+  //FETCH GET USER
+  async function userData() {
+    const options = {
       method: "GET",
-
       headers: {
         "Content-Type": "application/json",
         Authorization: "bearer " + localStorage.getItem("@userToken"),
       },
-
-      body: JSON.stringify({
-        lastname: user.lastname,
-        firstname: user.firstname,
-        email: user.email,
-        password: user.password,
-      }),
     };
-    //Changement de syntaxe pour le fetch :
-    await fetch(
+    const response = await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/user`,
       options
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        console.log("response", response);
-        if (response.success == true) {
-          localStorage.setItem("@userToken", response.token);
-        } else {
-          return alert(response.message);
-        }
-      });
-  };
+    );
 
-  //Fonction FETCH PUT USER
+    const data = await response.json();
+    setFirstName(data.firstname);
+    setLastName(data.lastname);
+    setEmail(data.email);
+    setAge(data.age);
+    setOccupation(data.occupation);
+
+    console.log(data);
+  }
+
+  useEffect(() => {
+    userData();
+  }, []);
 
   //Return de fin
   return (
@@ -56,8 +60,57 @@ function Profil() {
       <header>
         <Menu />
       </header>
-      <p>Vous devez vous connecter pour visualiser votre profil.</p>
-      <div className="formBody"></div>
+      <div>
+        <p>Consulter votre profil</p>
+      </div>
+      <div className="formBody">
+        <input
+          type="text"
+          className="input"
+          placeholder="Mon nom"
+          name="lastname"
+        />
+        {lastName}
+        <input
+          type="text"
+          className="input"
+          placeholder="Mon prénom"
+          name="firstname"
+        />
+        {firstName}
+        <input
+          type="text"
+          className="input"
+          placeholder="Mon mail"
+          name="email"
+        />
+        {email}
+        <input
+          type="password"
+          className="input"
+          placeholder="Mon mot de passe"
+          name="password"
+        />
+        <input
+          type="password"
+          className="input"
+          placeholder="Mon mot de passe"
+          name="password"
+        />
+        {age}
+        <input
+          type="password"
+          className="input"
+          placeholder="Mon mot de passe"
+          name="password"
+        />
+        {occupation}
+      </div>
+      <button className="buttonProfilModif" placeholder="Modifier">
+        <span className="buttonLoginText" onClick={handleChange}>
+          Modifier
+        </span>
+      </button>
       <Footer />
     </div>
   );
