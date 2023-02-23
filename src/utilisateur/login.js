@@ -48,24 +48,41 @@ function Login() {
         if (response.success == true) {
           localStorage.setItem("@userToken", response.token);
           navigate("/profil");
+          {
+            userConnexion();
+          }
         } else {
           return alert(response.message);
         }
       });
-
-    // if (response.success == true) {
-    //   localStorage.setItem("userToken", response.token);
-    // } else {
-    //   return alert(response.message);
-    // }
-    // let data = await response.json();
-    // console.log("data", data);
   };
 
   //UseEffect
   useEffect(() => {}, [user]);
 
-  //Return de fin
+  const userConnexion = async (e) => {
+    let options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer " + localStorage.getItem("@userToken"),
+      },
+    };
+    //Changement de syntaxe pour le fetch :
+    await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/user`,
+      options
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log("response", response);
+        if (response.success == true) {
+        }
+      });
+  };
+
   return (
     <div>
       <header>
