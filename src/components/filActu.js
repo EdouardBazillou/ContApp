@@ -4,6 +4,7 @@ import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
 
 function Actu() {
+  //Fetch GET POST
   return (
     <div>
       <header>

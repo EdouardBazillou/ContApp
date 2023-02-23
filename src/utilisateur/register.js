@@ -49,8 +49,8 @@ function Register() {
     console.log("data", data);
 
     console.log("je marche");
-    if (data.success) {
-      alert("Vous êtes bien inscrit ! Bienvenue sur notre réseau ! :)  ");
+    if (data.success == true) {
+      alert("Vous êtes bien inscrit ! Bienvenue sur notre réseau ! :) ");
     } else {
       alert("erreur " + data.message);
     }
