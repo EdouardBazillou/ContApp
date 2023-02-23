@@ -1,7 +1,29 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
+  const navigate = useNavigate();
+  //Variable de logout
+  // const [userLog, setUserLog] = useState("false");
+  // const [user, setUser] = useState({
+  //   lastname: "",
+  //   firstname: "",
+  //   email: "",
+  //   password: "",
+  // });
+
+  //Fonction Log out
+  const logOut = () => {
+    if (localStorage) {
+      localStorage.removeItem("@userToken");
+      alert("Vous êtes maintenant déconnecté.");
+      navigate("/");
+    }
+    console.log("je marche");
+  };
+
+  //Return de fin
   return (
     <div>
       <nav>
@@ -23,13 +45,18 @@ function Menu() {
           </div>
           <div className="ongletActu">
             <Link to="/filActu" className="links">
-              Mon fil d'actu
+              Fil d'actus
             </Link>
           </div>
           <div className="ongletPublier">
             <Link to="/Poster" className="links">
               Publier
             </Link>
+          </div>
+          <div className="ongletGetOff">
+            <button className="buttonLogOut" onClick={logOut}>
+              OFF
+            </button>
           </div>
         </div>
         <div className="border"></div>
