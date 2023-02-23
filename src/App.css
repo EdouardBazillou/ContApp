@@ -221,6 +221,11 @@
 }
 .returnPost {
   text-align: center;
+  border: solid 1px black;
+  border-radius: 1%;
+  margin-top: 3%;
+  min-height: 30vh;
+  min-width: 70vw;
 }
 .buttonLoginText {
   font-size: small;

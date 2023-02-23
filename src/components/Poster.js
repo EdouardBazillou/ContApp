@@ -4,18 +4,20 @@ import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
 
 function Post() {
-  const [post, setPost] = useState([""]);
+  const [title, setTitle] = useState("");
+  const [post, setPost] = useState("");
   const [newPost, setNewPost] = useState([]);
-
-  const deletePost = (item) => {
-    setNewPost(newPost.filter((_, i) => i !== item));
-  };
+  const [comment, setComment] = useState([]);
+  // const deletePost = (item) => {
+  //   setNewPost(newPost.filter((_, i) => i !== item));
+  // };
 
   const addPost = async (e) => {
     e.preventDefault();
     console.log(post);
-    setNewPost([...newPost, post]);
+
     setPost("");
+    setTitle("");
     console.log("test", post);
     const options = {
       method: "POST",
@@ -25,8 +27,8 @@ function Post() {
       },
 
       body: JSON.stringify({
-        title: "a",
-        content: "a",
+        title: title,
+        content: post,
       }),
     };
 
@@ -40,39 +42,76 @@ function Post() {
         return response.json();
       })
       .then((response) => {
+        getPost();
         console.log("response", response);
       });
   };
 
-  //Old Fetch
-  //   let response = await fetch(
-  //     `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
-  //     options
-  //   );
+  // Commentaires
+  const commentPost = async () => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer " + localStorage.getItem("@userToken"),
+      },
+      body: JSON.stringify({
+        postld: title,
+        content: comment,
+      }),
+    };
+    await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
+      options
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        getPost();
+        console.log("response", response);
+      });
+  };
 
-  //   let data = await response.json();
-  //   console.log("data", data);
+  const getPost = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    let response = await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/posts`,
+      options
+    );
+    let data = await response.json();
+    console.log("data", data);
+    setNewPost(data.posts, data.title);
 
-  //   setPost(data);
-
-  //   console.log("je marche");
-  // };
+    console.log("je marche");
+  };
 
   //useEffect
   useEffect(() => {
-    console.log("post", post);
+    getPost();
+    commentPost();
   }, []);
+
   //Render
   const render = () => {
     if (newPost.length >= 0) {
       return newPost.map((item, index) => {
         return (
           <div className="returnPost" key={item}>
-            {item}
-            {""}
-            <button className="deleteButton" onClick={() => deletePost(index)}>
+            {item.content}
+            <textarea
+              className="commentPost"
+              onChange={(e) => setComment(e.target.value)}
+            />
+            {/* <button onSubmit={addComment}>Valider</button> */}
+            {/* <button className="deleteButton" onClick={() => deletePost(index)}>
               Supprimer
-            </button>
+            </button> */}
           </div>
         );
       });
@@ -87,6 +126,16 @@ function Post() {
       <div>
         <form className="postContainer" onSubmit={addPost}>
           <h1 className="titlePost">Je publie</h1>
+          <div className="title">
+            <textarea
+              type="text"
+              rows="3"
+              cols="60"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Titre"
+            ></textarea>
+          </div>
           <div className="newPosts">
             <textarea
               type="text"
