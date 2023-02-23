@@ -21,45 +21,48 @@ function Post() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "bearer token",
+        Authorization: "bearer " + localStorage.getItem("@userToken"),
       },
 
       body: JSON.stringify({
-        title: "",
-        content: "",
+        title: "a",
+        content: "a",
       }),
     };
 
-    // //Changement de syntaxe
-    // console.log(options);
-    // await fetch(
-    //   `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
-    //   options
-    // )
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((response) => {
-    //     console.log("response", response);
-    //   });
-
-    let response = await fetch(
+    //Changement de syntaxe
+    console.log(options);
+    await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
       options
-    );
-
-    let data = await response.json();
-    console.log("data", data);
-
-    setPost(data);
-
-    console.log("je marche");
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log("response", response);
+      });
   };
 
+  //Old Fetch
+  //   let response = await fetch(
+  //     `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
+  //     options
+  //   );
+
+  //   let data = await response.json();
+  //   console.log("data", data);
+
+  //   setPost(data);
+
+  //   console.log("je marche");
+  // };
+
+  //useEffect
   useEffect(() => {
     console.log("post", post);
   }, []);
-
+  //Render
   const render = () => {
     if (newPost.length >= 0) {
       return newPost.map((item, index) => {
@@ -75,7 +78,7 @@ function Post() {
       });
     }
   };
-
+  //Return de fin
   return (
     <div>
       <header>

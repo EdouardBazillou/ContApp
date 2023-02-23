@@ -16,6 +16,11 @@ function Menu() {
               Me connecter
             </Link>
           </div>
+          <div className="ongletProfil">
+            <Link to="/profil" className="links">
+              Mon profil
+            </Link>
+          </div>
           <div className="ongletActu">
             <Link to="/filActu" className="links">
               Mon fil d'actu

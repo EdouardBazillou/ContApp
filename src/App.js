@@ -6,6 +6,7 @@ import Actu from "./components/filActu";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./utilisateur/Login";
 import Post from "./components/Poster";
+import Profil from "./utilisateur/Profil";
 import ls from "local-storage";
 
 const router = createBrowserRouter([
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
   {
     path: "/Poster",
     element: <Post />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/profil",
+    element: <Profil />,
     errorElement: <Error />,
   },
 ]);

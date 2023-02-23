@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
+import { useNavigate } from "react-router-dom";
 import ls from "local-storage";
 
 function Login() {
@@ -10,6 +11,8 @@ function Login() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   //Reprendre valeur des inputs
   const handleInput = (e) => {
@@ -44,6 +47,7 @@ function Login() {
         console.log("response", response);
         if (response.success == true) {
           localStorage.setItem("@userToken", response.token);
+          navigate("/profil");
         } else {
           return alert(response.message);
         }
@@ -54,9 +58,7 @@ function Login() {
     // } else {
     //   return alert(response.message);
     // }
-
     // let data = await response.json();
-
     // console.log("data", data);
   };
 

@@ -47,6 +47,11 @@
   text-decoration: inherit;
 }
 
+.ongletProfil {
+  flex-grow: 1;
+  text-decoration: none;
+}
+
 .ongletActu {
   flex-grow: 1;
   text-decoration: none;
