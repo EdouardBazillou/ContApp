@@ -13,7 +13,7 @@
   flex-flow: wrap;
   align-items: center;
   justify-content: space-around;
-  height: 10vh;
+  min-height: 10vh;
   width: 100%;
   background-color: #f0f0f1;
   text-decoration: none;
