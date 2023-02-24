@@ -16,7 +16,7 @@ function Actu() {
       },
     };
     let response = await fetch(
-      `https://social-network-api.osc-fr1.scalingo.io/contapp/posts?page=1&limit=10`,
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/posts?page=0&limit=10`,
       options
     );
     let data = await response.json();
