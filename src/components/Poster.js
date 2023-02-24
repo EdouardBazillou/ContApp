@@ -6,7 +6,6 @@ import Footer from "../Assets/Footer";
 function Post() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
-  const [comments, setComments] = useState([]);
   const [newPost, setNewPost] = useState([]);
 
   // const deletePost = (item) => {
@@ -48,42 +47,6 @@ function Post() {
       });
   };
 
-  // Commentaires
-  const addComment = async (e) => {
-    e.preventDefault();
-    console.log(comments);
-
-    setComments("");
-    console.log("test", comments);
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "bearer " + localStorage.getItem("@userToken"),
-      },
-
-      body: JSON.stringify({
-        postId: "",
-        content: comments,
-      }),
-    };
-
-    //Changement de syntaxe
-    console.log(options);
-    await fetch(
-      `https://social-network-api.osc-fr1.scalingo.io/contapp/post/comment`,
-      options
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        getPost();
-        console.log("response", response);
-      })
-      .then((data) => this.setComments({ postId: data.id }));
-  };
-
   const getPost = async () => {
     const options = {
       method: "GET",
@@ -118,9 +81,6 @@ function Post() {
             <br />
             <br />
             <p className="contentPost">{item.content}</p>
-            <textarea placeholder="Commentaires"></textarea>
-            <br />
-            <button onSubmit={addComment}>Valider</button>
           </div>
         );
       });

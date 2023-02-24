@@ -38,7 +38,8 @@ function Actu() {
               <p>{item.comment}</p>
               <p>{item.like}</p>
               <button>aimer</button>
-              <button>commenter</button>
+              <textarea>saisissez Commentaires</textarea>
+              <button onClick={addComment}>commenter</button>
             </div>
           </form>
         );
@@ -49,6 +50,38 @@ function Actu() {
   useEffect(() => {
     getPost();
   }, []);
+
+  const [comments, setComments] = useState([]);
+  const [typeComment, setTypeComment] = useState([]);
+
+  // Commentaires
+  const addComment = async (e) => {
+    e.preventDefault();
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer " + localStorage.getItem("@userToken"),
+      },
+
+      body: JSON.stringify({
+        postId: localStorage.getItem("id", post._id),
+        content: { setComments },
+      }),
+    };
+
+    //Changement de syntaxe
+    console.log(options);
+    await fetch(
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/post/comment`,
+      options
+    ).then((response) => {
+      return response.json();
+    });
+
+    setTypeComment(comments);
+  };
 
   return (
     <div>
