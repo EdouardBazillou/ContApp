@@ -51,8 +51,6 @@ function Actu() {
     getPost();
   }, []);
 
-  const [like, setLike] = useState(null);
-
   const postLike = async () => {
     const options = {
       method: "POST",
