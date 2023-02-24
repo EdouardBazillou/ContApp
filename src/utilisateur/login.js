@@ -46,6 +46,7 @@ function Login() {
       .then((response) => {
         console.log("response", response);
         if (response.success == true) {
+          alert("Hello there! Vous êtes bien connecté(e) à votre profil !");
           localStorage.setItem("@userToken", response.token);
           navigate("/profil");
           {

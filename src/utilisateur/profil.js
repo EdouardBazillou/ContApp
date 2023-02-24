@@ -10,32 +10,21 @@ function Profil() {
     firstname: "",
     email: "",
     password: "",
+    age: "",
+    occupation: "",
   });
+
   //CATCH & SET
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [occupation, setOccupation] = useState("");
 
-  //MODIFY
-  const [addType, setAddType] = useState("");
-  const [current, setCurrent] = useState({});
-  // Valeur false par défaut
-  const [edit, setEdit] = useState(false);
-
-  //Valeur INPUT
-  const handleChange = (alter) => {
-    setEdit(!edit);
-    console.log("je click");
+  const handleInputChange = (e) => {
+    setUser({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
-
-  //Bouton MODIFIER
-  function handleInputChange(e) {
-    setCurrent({ ...current, text: e.target.value });
-    console.log(current);
-  }
 
   //FETCH GET USER
   const userData = async () => {
@@ -52,18 +41,15 @@ function Profil() {
     );
 
     const data = await response.json();
-    setFirstName(data.firstname);
-    setLastName(data.lastname);
-    setEmail(data.email);
-    setPassword(data.password);
-    setAge(data.age);
-    setOccupation(data.occupation);
+    //Envoyer les infos
+    setUser(data);
     //Console Log
     console.log(data);
   };
+  //UseEffect Fetch GET
   useEffect(() => {
     userData();
-  }, [user]);
+  }, []);
 
   //FETCH PUT USER
   const userAlterData = async () => {
@@ -73,23 +59,55 @@ function Profil() {
         "Content-Type": "application/json",
         Authorization: "bearer " + localStorage.getItem("@userToken"),
       },
+      body: JSON.stringify({
+        lastname: user.lastname,
+        firstname: user.firstname,
+        email: user.email,
+        age: user.age,
+        occupation: user.occupation,
+      }),
     };
-    const response = await fetch(
+    //Changement de syntaxe pour le fetch :
+    await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/user`,
       options
-    );
-
-    const data = await response.json();
-    setFirstName(data.firstname);
-    setLastName(data.lastname);
-    setEmail(data.email);
-    setAge(data.age);
-    setOccupation(data.occupation);
-    //Console Log
-    console.log(data);
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log("response", response);
+        if (response.success == true) {
+          //Reprendre
+          userData();
+          //Set des updates
+          setAge(age);
+          setOccupation(occupation);
+          alert("Modifications prises en compte !");
+        } else {
+          return alert(response.message);
+        }
+      });
+    // const response = await fetch(
+    //   `https://social-network-api.osc-fr1.scalingo.io/contapp/user`,
+    //   options
+    // );
+    // const data = await response.json();
+    // //Reprendre
+    // userData();
+    // if (data.success === true) {
+    //   //Envoyer les modif dans USER METHODE
+    //   setUser(data);
+    //   alert("Modifications prises en compte !");
+    // } else {
+    //   alert("Error : " + data.message);
+    // }
+    // //Console Log
+    // console.log(data);
   };
+
   useEffect(() => {
-    userAlterData();
+    console.log(user);
   }, [user]);
 
   //Return de fin
@@ -98,69 +116,65 @@ function Profil() {
       <header>
         <Menu />
       </header>
-      {edit == false ? (
-        <div className="profilContainer">
-          <div className="titleProfil">
-            <p>Mon profil</p>
-          </div>
-          <div className="formBody">
-            <input
-              type="text"
-              className="input"
-              placeholder={lastName}
-              name="lastname"
-            />
 
-            <input
-              type="text"
-              className="input"
-              placeholder={firstName}
-              name="firstname"
-            />
-
-            <input
-              type="text"
-              className="input"
-              placeholder={email}
-              name="email"
-            />
-            <input
-              type="text"
-              className="input"
-              placeholder="Mon âge"
-              name="age"
-            />
-            <span>{age}</span>
-            <input
-              type="text"
-              className="input"
-              placeholder="Mon job"
-              name="occupation"
-            />
-            <span>{occupation}</span>
-          </div>
-          <div className="profilUpdate">
-            <button className="buttonProfilModif" placeholder="Modifier">
-              <span
-                className="buttonProfilText"
-                onChange={handleChange}
-                onClick={userAlterData}
-              >
-                Modifier
-              </span>
-            </button>
-            <button className="buttonProfilValidate" placeholder="Valider">
-              <span className="buttonProfilText">OK</span>
-            </button>
-          </div>
+      <div className="profilContainer">
+        <div className="titleProfil">
+          <p>Mon profil</p>
+          <p>Vous pouvez modifier votre profil en renseignant les lignes.</p>
         </div>
-      ) : (
-        <button
-          className="buttonProfilModif"
-          placeholder="Modifier"
-          onClick={handleChange}
-        ></button>
-      )}
+        <div className="formBody">
+          <input
+            type="text"
+            className="input"
+            value={user.lastname}
+            onChange={handleInputChange}
+            name="lastname"
+          />
+
+          <input
+            type="text"
+            className="input"
+            value={user.firstname}
+            onChange={handleInputChange}
+            name="firstname"
+          />
+
+          <input
+            type="text"
+            className="input"
+            value={user.email}
+            onChange={handleInputChange}
+            name="email"
+          />
+          <input
+            type="text"
+            className="input"
+            value={user.age}
+            onChange={handleInputChange}
+            name="age"
+          />
+          <span>{age}</span>
+          <input
+            type="text"
+            className="input"
+            value={user.occupation}
+            onChange={handleInputChange}
+            name="occupation"
+          />
+          <span>{occupation}</span>
+        </div>
+        <div className="profilUpdate">
+          <button className="buttonProfilValidate">
+            <span
+              className="buttonProfilText"
+              // onChange={handleInputChange}
+              onClick={userAlterData}
+            >
+              OK
+            </span>
+          </button>
+        </div>
+      </div>
       <Footer />
     </div>
   );

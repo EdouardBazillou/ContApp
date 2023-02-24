@@ -17,8 +17,8 @@ function Menu() {
   const logOut = () => {
     if (localStorage) {
       localStorage.removeItem("@userToken");
-      alert("Vous êtes maintenant déconnecté.");
       navigate("/");
+      alert("Vous êtes maintenant déconnecté(e).");
     }
     console.log("je marche");
   };
