@@ -59,7 +59,7 @@ function Actu() {
         Authorization: "bearer " + localStorage.getItem("@userToken"),
       },
       body: JSON.stringify({
-        postId: localStorage.setItem("@postId", post.id),
+        postId: post[0]._id,
       }),
     };
     let response = await fetch(
