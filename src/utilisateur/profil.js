@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
 
 function Profil() {
+  //Navigate
+  const navigate = useNavigate();
   //Variable REGISTER
   const [user, setUser] = useState({
     lastname: "",
@@ -15,9 +18,6 @@ function Profil() {
   });
 
   //CATCH & SET
-  // const [lastName, setLastName] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [occupation, setOccupation] = useState("");
 
@@ -84,26 +84,11 @@ function Profil() {
           setAge(age);
           setOccupation(occupation);
           alert("Modifications prises en compte !");
+          navigate("/filActu");
         } else {
           return alert(response.message);
         }
       });
-    // const response = await fetch(
-    //   `https://social-network-api.osc-fr1.scalingo.io/contapp/user`,
-    //   options
-    // );
-    // const data = await response.json();
-    // //Reprendre
-    // userData();
-    // if (data.success === true) {
-    //   //Envoyer les modif dans USER METHODE
-    //   setUser(data);
-    //   alert("Modifications prises en compte !");
-    // } else {
-    //   alert("Error : " + data.message);
-    // }
-    // //Console Log
-    // console.log(data);
   };
 
   useEffect(() => {
@@ -119,8 +104,8 @@ function Profil() {
 
       <div className="profilContainer">
         <div className="titleProfil">
-          <p>Mon profil</p>
-          <p>Vous pouvez modifier votre profil en renseignant les lignes.</p>
+          <p>Je renseigne mon profil</p>
+          <p>Je peux modifier mon profil en renseignant les lignes</p>
         </div>
         <div className="formBody">
           <input
@@ -147,8 +132,9 @@ function Profil() {
             name="email"
           />
           <input
-            type="text"
+            type="number"
             className="input"
+            placeholder="Votre âge"
             value={user.age}
             onChange={handleInputChange}
             name="age"
@@ -157,6 +143,7 @@ function Profil() {
           <input
             type="text"
             className="input"
+            placeholder="Mon job"
             value={user.occupation}
             onChange={handleInputChange}
             name="occupation"
@@ -165,11 +152,7 @@ function Profil() {
         </div>
         <div className="profilUpdate">
           <button className="buttonProfilValidate">
-            <span
-              className="buttonProfilText"
-              // onChange={handleInputChange}
-              onClick={userAlterData}
-            >
+            <span className="buttonProfilText" onClick={userAlterData}>
               OK
             </span>
           </button>

@@ -4,14 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function Menu() {
   const navigate = useNavigate();
-  //Variable de logout
-  // const [userLog, setUserLog] = useState("false");
-  // const [user, setUser] = useState({
-  //   lastname: "",
-  //   firstname: "",
-  //   email: "",
-  //   password: "",
-  // });
 
   //Fonction Log out
   const logOut = () => {
@@ -25,7 +17,7 @@ function Menu() {
 
   //Return de fin
   return (
-    <div>
+    <div className="menuContent">
       <nav>
         <div className="navBar">
           <div className="contAppHome">
