@@ -49,7 +49,7 @@ function Register() {
     console.log("data", data);
 
     console.log("je marche");
-    if (data.success == true) {
+    if (data.success === true) {
       alert("Vous êtes bien inscrit ! Bienvenue sur notre réseau ! :) ");
     } else {
       alert("erreur " + data.message);
@@ -58,7 +58,7 @@ function Register() {
 
   useEffect(() => {
     console.log("user", user);
-  }, []);
+  }, [user]);
 
   return (
     <div>
