@@ -228,14 +228,7 @@
   text-align: center;
   font-size: larger;
   box-shadow: 1px 0px 1px 1px #46464c;
-}
-
-.renderPost {
-  border: solid 1px black;
-  border-radius: 1%;
-  margin-top: 3%;
-  min-height: 30vh;
-  min-width: 70vw;
+ 
 }
 
 .titlePost {
@@ -243,11 +236,16 @@
 }
 .returnPost {
   text-align: center;
-  border: solid 1px black;
-  border-radius: 1%;
+  vertical-align: auto;
+  border-radius: 5%;
   margin-top: 3%;
   min-height: 30vh;
-  min-width: 70vw;
+  min-width: 50vw;
+  background-color: rgb(208, 208, 231);
+}
+.TitlePost{
+padding-top: 5%;
+
 }
 .buttonLoginText {
   font-size: small;

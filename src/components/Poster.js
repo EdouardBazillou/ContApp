@@ -6,8 +6,9 @@ import Footer from "../Assets/Footer";
 function Post() {
   const [title, setTitle] = useState("");
   const [post, setPost] = useState("");
+  const [comments, setComments] = useState([]);
   const [newPost, setNewPost] = useState([]);
-  const [comment, setComment] = useState([]);
+
   // const deletePost = (item) => {
   //   setNewPost(newPost.filter((_, i) => i !== item));
   // };
@@ -48,20 +49,29 @@ function Post() {
   };
 
   // Commentaires
-  const commentPost = async () => {
+  const addComment = async (e) => {
+    e.preventDefault();
+    console.log(comments);
+
+    setComments("");
+    console.log("test", comments);
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "bearer " + localStorage.getItem("@userToken"),
       },
+
       body: JSON.stringify({
-        postld: title,
-        content: comment,
+        postId: "",
+        content: comments,
       }),
     };
+
+    //Changement de syntaxe
+    console.log(options);
     await fetch(
-      `https://social-network-api.osc-fr1.scalingo.io/contapp/post`,
+      `https://social-network-api.osc-fr1.scalingo.io/contapp/post/comment`,
       options
     )
       .then((response) => {
@@ -70,7 +80,8 @@ function Post() {
       .then((response) => {
         getPost();
         console.log("response", response);
-      });
+      })
+      .then((data) => this.setComments({ postId: data.id }));
   };
 
   const getPost = async () => {
@@ -94,7 +105,6 @@ function Post() {
   //useEffect
   useEffect(() => {
     getPost();
-    commentPost();
   }, []);
 
   //Render
@@ -103,15 +113,14 @@ function Post() {
       return newPost.map((item, index) => {
         return (
           <div className="returnPost" key={item}>
-            {item.content}
-            <textarea
-              className="commentPost"
-              onChange={(e) => setComment(e.target.value)}
-            />
-            {/* <button onSubmit={addComment}>Valider</button> */}
-            {/* <button className="deleteButton" onClick={() => deletePost(index)}>
-              Supprimer
-            </button> */}
+            <h3 className="TitlePost">{item.title}</h3>
+            {"\n"}
+            <br />
+            <br />
+            <p className="contentPost">{item.content}</p>
+            <textarea placeholder="Commentaires"></textarea>
+            <br />
+            <button onSubmit={addComment}>Valider</button>
           </div>
         );
       });
