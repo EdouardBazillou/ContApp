@@ -37,6 +37,8 @@ function Actu() {
               <p>{item.date}</p>
               <p>{item.comment}</p>
               <p>{item.like}</p>
+              <button>aimer</button>
+              <button>commenter</button>
             </div>
           </form>
         );
