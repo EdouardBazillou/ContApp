@@ -214,8 +214,9 @@
 }
 
 .titleProfil {
+  text-align: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: large;
+  font-size: medium;
   font-weight: bold;
 }
 
