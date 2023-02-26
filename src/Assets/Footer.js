@@ -4,7 +4,9 @@ function Footer() {
   return (
     <div className="myFooter">
       <div className="borderBottom"></div>
-      <div id="footerPage"></div>
+      <div id="footerPage">
+        <p id="footerMotto">L'appli pour les Contents, tout simplement...</p>
+      </div>
     </div>
   );
 }

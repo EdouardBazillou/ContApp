@@ -2,6 +2,7 @@ import { Link, useActionData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Actu() {
   //Fetch GET POST
@@ -40,7 +41,12 @@ function Actu() {
                 <p>{item.like}</p>
               </div>
             </form>
-            <button onClick={postLike}>aimer</button>
+            <div className="postOptions">
+              <button className="buttonLike" onClick={postLike}>
+                🖤
+              </button>
+              <button className="buttonComment">👁️‍🗨️</button>
+            </div>
           </div>
         );
       });
@@ -52,7 +58,7 @@ function Actu() {
   }, []);
 
   const postLike = async () => {
-    const options = {
+    let options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,19 +68,22 @@ function Actu() {
         postId: post[0]._id,
       }),
     };
-    let response = await fetch(
+    const response = await fetch(
       `https://social-network-api.osc-fr1.scalingo.io/contapp/post/like`,
       options
     );
-    let data = await response.json();
+    const data = await response.json();
     console.log("data", data);
 
     console.log("je marche");
-    alert("vous avez liker le post ! ");
+    alert("Et 1 like de plus! ");
   };
 
-  // const [comment, setComment] = useState([]);
+  useEffect(() => {
+    postLike();
+  }, []);
 
+  // const [comment, setComment] = useState([]);
   // const handleInput = (e) => {
   //   setComment({ [e.target.name]: e.target.value });
   //   setUser({ ...comment, [e.target.name]: e.target.value });
@@ -96,8 +105,6 @@ function Actu() {
   //       content: { setComments },
   //     }),
   //   };
-
-  //   //Changement de syntaxe
   //   console.log(options);
   //   await fetch(
   //     `https://social-network-api.osc-fr1.scalingo.io/contapp/post/comment`,
@@ -114,8 +121,12 @@ function Actu() {
       <header>
         <Menu />
       </header>
-      <h2>Fil Actu</h2>
-      <button onClick={getPost}>Actualiser mon fil</button>
+      <div className="actuContainer">
+        <h3>Mon fil d'actus</h3>
+        <button className="buttonGetPost" onClick={getPost}>
+          actus
+        </button>
+      </div>
       <div>{renderActu()}</div>
       <Footer />
     </div>

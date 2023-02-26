@@ -134,7 +134,7 @@ function Profil() {
           <input
             type="number"
             className="input"
-            placeholder="Votre âge"
+            placeholder="Mon âge"
             value={user.age}
             onChange={handleInputChange}
             name="age"

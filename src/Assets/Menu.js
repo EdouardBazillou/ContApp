@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ls from "local-storage";
 
 function Menu() {
   const navigate = useNavigate();
 
-  //Fonction Log out
+  //Fonction Log Out- boutton OFF
   const logOut = () => {
     if (localStorage) {
       localStorage.removeItem("@userToken");
-      navigate("/");
-      alert("Vous êtes maintenant déconnecté(e).");
+      navigate("/Login");
+      return alert("Vous êtes maintenant déconnecté(e).");
+    }
+    console.log("je marche");
+  };
+
+  //Fonction LoggedIn - Check pour 'Publier'
+  const logCheckIn = () => {
+    if (localStorage != true) {
+      navigate("/Login");
+      return alert("Vous devez vous connecter pour accéder à cette page.");
     }
     console.log("je marche");
   };
@@ -41,7 +51,7 @@ function Menu() {
             </Link>
           </div>
           <div className="ongletPublier">
-            <Link to="/Poster" className="links">
+            <Link to="/Poster" className="links" onClick={logCheckIn}>
               Publier
             </Link>
           </div>
