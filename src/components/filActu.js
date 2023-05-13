@@ -2,7 +2,7 @@ import { Link, useActionData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Menu from "../Assets/Menu";
 import Footer from "../Assets/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Actu() {
   //Fetch GET POST
